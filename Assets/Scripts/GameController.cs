@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour {
             infoText.text = "Avoid the obstacles!\nPress button to jump\nTime: " + Mathf.Floor(gameTimer);
         } else {
             infoText.text = "Game over\nYour time: " + Mathf.Floor(gameTimer);
-
+            player.Decelerate(0.1f);
             restartTimer -= Time.deltaTime;
             if (restartTimer <= 0f) {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);

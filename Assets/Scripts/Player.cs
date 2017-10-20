@@ -21,15 +21,17 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         // move the player forward
-        speed += acceleration * Time.deltaTime;
-        if (speed > maximumSpeed) {
-            speed = maximumSpeed;
+        if (!reachedFinishLine) {
+            speed += acceleration * Time.deltaTime;
+            if (speed > maximumSpeed) {
+                speed = maximumSpeed;
+            }
         }
 
-        transform.position += maximumSpeed * Vector3.forward * Time.deltaTime;
+        transform.position += speed * Vector3.forward * Time.deltaTime;
         // make the player jump
         jumpingTimer -= Time.deltaTime;
-        if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)) {
+        if (!reachedFinishLine && (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))) {
             if (jumpingTimer <= 0f) {
                 jumpingTimer = jumpingCooldown;
                 GetComponent<Rigidbody>().AddForce(Vector3.up * jumpingForce);
@@ -40,11 +42,18 @@ public class Player : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         Debug.Log("hit something: " + other.tag);
         if (other.tag.Equals("Obstacle")) {
-            speed *= 0.5f;
+            Decelerate(speed * 0.5f);
         }
 
         if (other.tag.Equals("FinishLine")) {
             reachedFinishLine = true;
+        }
+    }
+
+    public void Decelerate(float speedValue) {
+        speed -= speedValue;
+        if (speed < 0f) {
+            speed = 0;
         }
     }
 }
