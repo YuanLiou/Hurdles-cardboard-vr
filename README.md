@@ -2,7 +2,7 @@
 Hurdles Cardboard VR Game
 
 ### Preview:<br>
-![Go Imgur to see gif](https://imgur.com/lrPFmyH)
+[Go Imgur to see gif](https://imgur.com/lrPFmyH)
 <br><br>
 ![Imgur](https://i.imgur.com/acTq3hP.png)
 ![Imgur](https://i.imgur.com/FzbcgA3.png)
