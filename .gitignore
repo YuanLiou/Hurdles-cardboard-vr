@@ -115,3 +115,4 @@ fabric.properties
 # Custom path
 Assets/GoogleVR/Demos/
 Assets/GoogleVR/Demos.meta
+.idea/
