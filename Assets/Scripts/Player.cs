@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.WSA;
 
 public class Player : MonoBehaviour {
 
@@ -10,25 +11,43 @@ public class Player : MonoBehaviour {
     public float jumpingForce = 100f;
     public float jumpingCooldown = 0.6f;
     public bool reachedFinishLine = false;
+    public float turnaroundDuration = 10f;
 
     private float speed = 0f;
     private float jumpingTimer = 0f;
-    // Use this for initialization
-    void Start() {
+    private float progress;
+    private bool inverseDirection;
 
-    }
+    private BezierSpline path;
+    // Use this for initialization
+    void Start() {}
 
     // Update is called once per frame
     void Update() {
         // move the player forward
-        if (!reachedFinishLine) {
+        if (!reachedFinishLine && path == null) {
             speed += acceleration * Time.deltaTime;
             if (speed > maximumSpeed) {
                 speed = maximumSpeed;
             }
         }
 
-        transform.position += speed * Vector3.forward * Time.deltaTime;
+        if (path == null) {
+            transform.position += (inverseDirection ? -speed : speed) * Vector3.forward * Time.deltaTime;
+        } else {
+            // running on the spline
+            progress += Time.deltaTime / turnaroundDuration;
+            if (progress > 1f) {
+                progress = 0;
+                inverseDirection = !inverseDirection;
+                path = null;
+                return;
+            }
+
+            Vector3 pathPosition = path.GetPoint(progress);
+            transform.localPosition = pathPosition;
+            transform.LookAt(pathPosition + path.GetDirection(progress));
+        }
         // make the player jump
         jumpingTimer -= Time.deltaTime;
         if (!reachedFinishLine && (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))) {
@@ -47,6 +66,10 @@ public class Player : MonoBehaviour {
 
         if (other.tag.Equals("FinishLine")) {
             reachedFinishLine = true;
+        }
+
+        if (other.tag.Equals("TurnAround")) {
+            path = other.GetComponent<TurnaroundTrigger>().path;
         }
     }
 

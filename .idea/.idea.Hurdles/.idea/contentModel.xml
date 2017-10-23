@@ -6,6 +6,18 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="BezierSpline" t="Include">
+          <e p="Bezier.cs" t="Include" />
+          <e p="BezierControlPointMode.cs" t="Include" />
+          <e p="BezierSpline.cs" t="Include" />
+          <e p="Line.cs" t="Include" />
+          <e p="SplineWalker.cs" t="Include" />
+          <e p="SplineWalkerMode.cs" t="Include" />
+        </e>
+        <e p="Editor" t="Include">
+          <e p="BezierSpineInspector.cs" t="Include" />
+          <e p="LineInspector.cs" t="Include" />
+        </e>
         <e p="GoogleVR" t="Include">
           <e p="Demos" t="Include">
             <e p="Editor" t="Include">
@@ -281,6 +293,7 @@
           <e p="BodyRunningEffect.cs" t="Include" />
           <e p="GameController.cs" t="Include" />
           <e p="Player.cs" t="Include" />
+          <e p="TurnaroundTrigger.cs" t="Include" />
         </e>
       </e>
       <e p="Hurdles.sln" t="IncludeFlat" />

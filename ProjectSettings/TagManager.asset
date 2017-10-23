@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - FinishLine
+  - TurnAround
   layers:
   - Default
   - TransparentFX
